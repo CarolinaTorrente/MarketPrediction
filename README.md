@@ -1,4 +1,4 @@
-Summary of Project Idea & Goal
+# Summary of Project Idea & Goal
 
 The main goal of this project is to develop a reliable model for predicting the market value of football players for a given season by identifying and analyzing key factors that contribute most significantly to their value.
 
@@ -6,7 +6,7 @@ Using advanced data analysis and machine learning techniques, we aim to detect p
 
 Furthermore, this project seeks to provide insights into how these variables interact and influence a player’s value over time. This will enable stakeholders such as clubs, agents, and analysts to make more informed decisions regarding transfers and player investments.
 
-Summary of the State of the Art & Differentiation
+# Summary of the State of the Art & Differentiation
 
 Football is one of the sports that handles the most money globally. Predicting the market value of players has been an active research area, with multiple tools and studies utilizing machine learning, data mining, and statistical analysis to identify trends and key influencing factors.
 
@@ -18,7 +18,7 @@ Our project aims to differentiate itself by integrating multiple dimensions of p
 
 Through this analysis, we can identify undervalued players with high potential, understand how players evolve throughout the seasons, and assess whether they perform differently across various leagues.
 
-Detailed Description of the Final Data Source
+# Detailed Description of the Final Data Source
 
 We collected data from Transfermarkt, a comprehensive database and marketplace for football player information. The platform provides structured data on players, teams, leagues, and competitions, including:
 
@@ -44,7 +44,7 @@ Scraped data can power predictive models for player market values and trend visu
 
 Additionally, Transfermarkt covers leagues worldwide, including major ones like the Premier League and La Liga, as well as emerging leagues. It also includes historical data, offering opportunities for longitudinal studies.
 
-Data Gathering Technique
+# Data Gathering Technique
 
 After analyzing the website, we determined that the best scraping technique would be using BeautifulSoup. We extracted key data points, including player name, player ID, and nationality.
 
@@ -62,7 +62,7 @@ Injury data (days missed, games affected)
 
 Most importantly, we included market value and normalized market value, allowing for accurate player comparisons. Our analysis explores how on-field performance, injuries, and other factors influence a player's market value.
 
-Preprocessing
+# Preprocessing
 
 Loading and Preparing Data
 
@@ -88,4 +88,79 @@ sum (e.g., total appearances)
 
 Rolling Metrics:
 
-mean_go
+mean_goals: Calculates a rolling average of goals over the last three seasons.
+
+goals_diff: Computes the season-over-season difference in goals.
+
+Market_Value_normalized: Normalizes market value for easier comparison.
+
+Handling Nulls: Cleans missing values in the dataset.
+
+Processing Nationalities: Converts the Nationality column (stored as a string list) into a Python list and extracts the first nationality for each player.
+
+Exporting Cleaned Data
+
+# Analysis Techniques
+
+We performed unsupervised and supervised analysis, as well as descriptive analysis, which is reflected in our dashboard.
+
+## Descriptive Analysis (Dashboard)
+
+Descriptive analysis was crucial for building a strong predictive model. During this phase, we extracted key insights into player performance and identified data inconsistencies, which were corrected to improve model accuracy.
+
+We structured the analysis into three sections:
+
+Player Overview
+
+Club and League Overview
+
+Position-Based Analysis
+
+Data Issues and Fixes
+
+Nationality Handling: Some players had multiple nationalities, which were stored as lists. This created aggregation issues, as different ordered lists were treated as distinct values. We resolved this by splitting and processing the column before plotting.
+
+Duplicate Data: Player market values were recorded at both the start and end of the season, leading to overfitting. We adjusted the dataset accordingly.
+
+Date Formatting Issue: Seasons were formatted as 12/13, but when uploaded to Locker Studio, they were misinterpreted as December 13th. We manually corrected approximately 13 seasons in Excel by converting the cells to text format.
+
+Graphical Representation Challenge: We attempted to create a football field graph but faced issues in filtering and preserving coordinates.
+
+## Unsupervised Analysis
+
+Before implementing predictive models, we conducted Principal Component Analysis (PCA) to understand player distribution and detect correlations between variables.
+
+Scaling & Normalization: Normalized market values for better visualization.
+
+PCA Insights:
+
+Lower market values (purple) are clustered near the origin, indicating common performance metrics among average or lower-tier players.
+
+High-value players (yellow) are dispersed, suggesting unique performance characteristics.
+
+Some players with low market values but distant from the center may be undervalued based on their statistical profile.
+
+This analysis helped refine our approach by highlighting the need to account for unique performance factors rather than treating all players uniformly.
+
+## Supervised models
+
+Random Forest: Builds multiple decision trees and averages the results, reducing overfitting. Handles a wide range of data distributions and feature interactions.
+XGBoost: gradient-boosted decision tree algorithm that uses regularization techniques (L1 and L2) to prevent overfitting.
+Light GBM: Specifically designed for large datasets. Handles categorical features effectively by converting them into numerical formats internally.
+
+### Steps:
+Dummies of ‘Club’, ‘Position’ and ‘Nationality’.
+Split of train and test sets with y as the market value normalized (target) and X the rest of the variables except from ‘Player’, ‘Season’ and ‘Market Value’.
+Fine tuning of the parameters of the models.
+Visualization of the results.
+Ensemble and stacking of the models.
+Comparison of the techniques.
+
+### Key findings: Age, performance metrics, and injuries significantly influence market value.
+
+
+
+
+
+
+
